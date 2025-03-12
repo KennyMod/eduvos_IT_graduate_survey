@@ -1,0 +1,122 @@
+---
+title: "Eduvos Graduate Survey Analysis"
+author: "Kenechukwu Modebelu"
+format: pdf
+editor: visual
+---
+
+# Introduction
+
+This report analyzes the survey data from Eduvos IT faculty graduates from the Top 5 campuses to identify industry-relevant tech tools and the trends. The goal of this analysis is to help Eduvos streamline their curriculum with the current industry demands by understanding the most popular tools the graduates are using such as' **Programming languages**, **Databases**, **Web frameworks**, **Cloud platform**, **AI Tools**, and the **Employment status**. This analysis focuses on prioritizing tools with a high adoption rate and the current emerging trends to ensure students acquire the right skills to enhance their employability rate.
+
+# Data Overview
+
+##Dataset Summary
+
+-   **Sample Size**: 12,975 respondents (Top 5 campuses from total 13,822)
+-   **Key Variables**: Although, there are over 80 columns in the dataset, only 13 of these columns will be used for this analysis. The key variables are Campus, StudyField, Branch, Role, EduLevel, ProgLang, Databases, Platform, WebFramework, Industry, AISearch, AITool, Employment.
+-   **Limitations**: No specific survey time period provided
+
+## Data Preparation
+
+-   **Data Cleaning**: In the data cleaning process, I used created a mode function to get the most that occurred in each of those 13 columns then replaced the NA values with the mode.
+-   **Standardization**: Original column names retained due to clear labeling from the initial dataset provided
+-   **Focus**: This dataset focused only on the IT graduayes from Eduvos
+
+```{r}
+#| label: data-cleaning
+#| warning: false
+
+library(tidyverse)
+#function to get mode
+mode_function <- function(x) { # define function and assign it to mode_function
+  ux <- unique(na.omit(x)) # omit every occurrence of NA and get the unique value from the column
+  ux[which.max(tabulate(match(x, ux)))] #counts how many times each unique value appears and then gives the most frequent one
+}
+
+focused_graduate_survey <- graduate_survey %>%
+  select(Campus, StudyField, Branch, Role, EduLevel, ProgLang, Databases, Platform, WebFramework, Industry, AISearch, AITool, Employment)
+
+#Treat the missing value by replacing the NA values with the most frequent in each column
+treat_missing_value <- focused_graduate_survey %>%
+  mutate(
+    Role = ifelse(is.na(Role), mode_function(Role), Role),
+    EduLevel = ifelse(is.na(EduLevel), mode_function(EduLevel), EduLevel),
+    ProgLang = ifelse(is.na(ProgLang), mode_function(ProgLang), ProgLang),
+    Databases = ifelse(is.na(Databases), mode_function(Databases), Databases),
+    Platform = ifelse(is.na(Platform), mode_function(Platform), Platform),
+    WebFramework = ifelse(is.na(WebFramework), mode_function(WebFramework), WebFramework),
+    AISearch = ifelse(is.na(AISearch), mode_function(AISearch), AISearch),
+    Employment = ifelse(is.na(Employment), mode_function(Employment), Employment)
+  )
+View(treat_missing_value)
+```
+
+# Insights and Analysis
+
+## Programming Languages
+
+```{r}
+#| label: prog-lang-plot
+#| fig-cap: "Top Programming Languages Among Graduates"
+#| warning: false
+
+-   **Top Languages**:
+    -   Javascript (8311 of the respondents use this Language)
+    -   HTML/CSS (7023 of the respondents use this language)
+    -   Python (6431 of the respondents use this language)
+    -   SQL (6302 of the respondents use this language) and many more.
+-   **Trends**:
+    -   Javascript remains critical for full-stack web development.
+    -   HTML/CSS remains the top front-end framework
+    -   Python dominates in AI/ML roles due to packages that allow easy development
+    -   SQL is the top for database roles
+
+## Databases
+
+-   **Most Used**:
+    -   PostgreSQL (7461 of the respondents use this database)
+    -   MySQL (4487 of the respondents use this database)
+    -   SQLite (3480 of the respondents use this database)
+    -   Microsoft SQL Server (2903 of the respondent use this database)
+    -   MongoDB (2777 of the respondent use this database) -**Patterns**:
+    -   Relational databases such as PostgreSQL & MySQL lead in enterprise roles -NoSQL(MongoDB) and Microsoft SQL server are growing as they exist in the top 5 databases
+
+## Web Frameworks
+
+-   **Popular Frameworks**:
+    -   React (7297 of the total respondents use this framework)
+    -   Node.js (4337 of the total respondents use this server environment)
+    -   JQuery (2330 of the total respondents use this)
+    -   Express.js (1935 of the total respondent use this web framework)
+-   **Correlations**:
+    -   React + Node.js is a common full-stack combination hence giving the highest frameworks used by the graduates at Eduvos
+    -   JQuery is next in line because it makes it easier for the user to run javascript on a website
+    -   Express.js contains features and packages that can make it easier for building mobile and web applications
+
+## Cloud Platforms
+
+-   **Leading Platforms**:
+    -   AWS ranks the highest as the top platform for cloud services with 8612 from the total respondents using this cloud platform
+    -   Microsoft Azure is the second ranking in cloud platform services used by the graduates with a number of 2715
+    -   Google Cloud ranks as the third ranked in the cloud platform services with a count of 2395
+    -   Cloudflare ranks next with a count of 1499 in the cloud service platforms
+-   **Trends**:
+    -   Multi-cloud expertise is rising, with more graduates using cloud platforms for their day to day job task.
+
+## AI Tools
+
+-   **Key Tools**:
+    -   Github Copilot has a count of 7298 of the total graduates using github copilot as an AI tool.
+    -   Tabnine has a count of 6201 from the total graduates using Tabnine as an AI tool
+    -   AWS CodeWhisperer has a count of 5718 from the total graduates using the AWS codewhisperer as an AI tool
+
+# Recommendations
+
+## Curriculum Development
+
+## Focus Areas
+
+## Industry Alignment
+
+# Conclusion
