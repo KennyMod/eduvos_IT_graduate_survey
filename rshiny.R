@@ -4,6 +4,7 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(viridis)
+library(rsconnect)
 
 #Load the Top 5 Campus data
 Top_5_Campus_Data <- read_csv("top5CampusData.csv")
