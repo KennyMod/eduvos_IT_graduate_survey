@@ -1,0 +1,10 @@
+name: r_shiny_assignment
+title:
+username: kennymod
+account: kennymod
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14225621
+bundleId: 9931626
+url: https://kennymod.shinyapps.io/r_shiny_assignment/
+version: 1
