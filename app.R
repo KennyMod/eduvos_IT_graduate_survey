@@ -3,13 +3,14 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(viridis)
+library(ggrepel)
 library(rsconnect)
 
 #Load the Top 5 Campus data
 Top_5_Campus_Data <- read_csv("top5CampusData.csv")
 
 ui <- dashboardPage(
-  dashboardHeader(title = "IT Graduates Dashboard", titleWidth = 300), #Header or Title of Dashboard
+  dashboardHeader(title = "IT Graduate Dashboard"), #Header or Title of Dashboard
   dashboardSidebar(
     selectInput("campus", "Select Campus:",
                 choices = c("All", unique(Top_5_Campus_Data$Campus))),
@@ -198,12 +199,11 @@ server <- function(input, output) {
     ggplot(employment_data, aes(x = "", y = Employment_Rate, fill = StudyField)) +
       geom_col(width = 1) +
       coord_polar("y", start = 0) +  # Convert to pie chart
-      geom_text(
-        aes(label = paste0(Employment_Rate, "%")),
-        position = position_stack(vjust = 0.5),  # Center labels
-        color = "white",  # Label color for visibility of percentage
-        size = 5
-      ) +
+      geom_label_repel(aes(label = paste0(round(Employment_Rate, 1), "%")),
+                       position = position_stack(vjust = 0.5),
+                       size = 4,  # Adjust font size
+                       box.padding = 0.5,  # Add space around labels
+                       show.legend = FALSE) +
       labs(
         fill = "Study Field",  # Legend title
         title = "Employment Rate by Study Field"
@@ -226,8 +226,11 @@ server <- function(input, output) {
     ggplot(studyfield_counts, aes(x = "", y = Count, fill = StudyField)) +
       geom_bar(stat = "identity", width = 1) +
       coord_polar("y", start = 0) +  # Convert to pie chart
-      geom_text(aes(label = paste0(round(Percentage, 1), "%")),
-                position = position_stack(vjust = 0.5)) +
+      geom_label_repel(aes(label = paste0(round(Percentage, 1), "%")),
+                       position = position_stack(vjust = 0.5),
+                       size = 4,  # Adjust font size
+                       box.padding = 0.5,  # Add space around labels
+                       show.legend = FALSE) +
       labs(fill = "Study Field", title = "Distribution of Study Fields") +
       theme_void() +  # give a Clean background
       theme(plot.title = element_text(hjust = 0.5, face = "bold"))
@@ -240,14 +243,17 @@ server <- function(input, output) {
       summarise(Count = n()) %>%
       mutate(Percentage = (Count / sum(Count)) * 100)
     
-    # Create pie chart
+    # Create donut chart
     ggplot(eduLevel_counts, aes(x = 2, y = Count, fill = EduLevel)) +
       geom_bar(stat = "identity", width = 1) +
-      coord_polar("y", start = 0) +  # Convert to pie chart
+      coord_polar("y", start = 0) +
       xlim(0.5, 2.5) +
-      geom_text(aes(label = paste0(round(Percentage, 1), "%")),
-                position = position_stack(vjust = 0.5)) +
-      labs(fill = "EduLevel", title = "Distribution of Educational Level") +
+      geom_label_repel(aes(label = paste0(round(Percentage, 1), "%")),
+                       position = position_stack(vjust = 0.5),
+                       size = 4,  # Adjust font size
+                       box.padding = 0.5,  # Add space around labels
+                       show.legend = FALSE) +
+      labs(fill = "EduLevel", title = "Educational Level") +
       theme_void() +  # give a Clean background
       theme(plot.title = element_text(hjust = 0.5, face = "bold"))
   })
@@ -263,8 +269,11 @@ server <- function(input, output) {
     ggplot(industry_count, aes(x = "", y = Count, fill = Industry)) +
       geom_bar(stat = "identity", width = 1) +
       coord_polar("y", start = 0) +  # Convert to pie chart
-      geom_text(aes(label = paste0(round(Percentage, 1), "%")),
-                position = position_stack(vjust = 0.5)) +
+      geom_label_repel(aes(label = paste0(round(Percentage, 1), "%")),
+                       position = position_stack(vjust = 0.5),
+                       size = 4,  # Adjust font size
+                       box.padding = 0.5,  # Add space around labels
+                       show.legend = FALSE) +
       labs(fill = "Industry", title = "Distribution of Industries") +
       theme_void() +  # give a Clean background
       theme(plot.title = element_text(hjust = 0.5, face = "bold"))
@@ -276,13 +285,16 @@ server <- function(input, output) {
       summarise(Count = n()) %>% 
       mutate(Percentage = (Count /sum(Count)) * 100)
     
-    # Create pie chart
+    # Create donut chart
     ggplot(branch_count, aes(x = 2, y = Count, fill = Branch)) +
       geom_bar(stat = "identity", width = 1) +
-      coord_polar("y", start = 0) +  # Convert to pie chart
+      coord_polar("y", start = 0) +
       xlim(0.5, 2.5) +
-      geom_text(aes(label = paste0(round(Percentage, 1), "%")),
-                position = position_stack(vjust = 0.5)) +
+      geom_label_repel(aes(label = paste0(round(Percentage, 1), "%")),
+                       position = position_stack(vjust = 0.5),
+                       size = 4,  # Adjust font size
+                       box.padding = 0.5,  # Add space around labels
+                       show.legend = FALSE) +
       labs(fill = "Branch", title = "Distribution of Branches") +
       theme_void() +  # give a Clean background
       theme(plot.title = element_text(hjust = 0.5, face = "bold"))
