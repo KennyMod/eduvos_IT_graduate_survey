@@ -106,6 +106,7 @@ server <- function(input, output) {
       geom_bar(stat = "identity", fill = viridis(1)) +
       geom_text(aes(label = n), hjust = -0.2) + 
       coord_flip() +  # Horizontal bars for better readability
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +  # Make space for labels
       labs(title = "Top Programming Languages", 
            x = "", y = "Count") +
       plot_theme()
@@ -119,6 +120,7 @@ server <- function(input, output) {
       geom_bar(stat = "identity", fill = viridis(1)) +
       geom_text(aes(label = n), hjust = -0.2) + 
       coord_flip() +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +  # Make space for labels
       labs(title = "Top Databases", x = "", y = "Count") +
       plot_theme()
   })
@@ -131,6 +133,7 @@ server <- function(input, output) {
       geom_bar(stat = "identity", fill = viridis(1)) +
       geom_text(aes(label = n), hjust = -0.2) + 
       coord_flip() +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +  # Make space for labels
       labs(title = "Top Web Frameworks", x = "", y = "Count") +
       plot_theme()
   })
@@ -143,6 +146,7 @@ server <- function(input, output) {
       geom_bar(stat = "identity", fill = viridis(1)) +
       geom_text(aes(label = n), hjust = -0.2) + 
       coord_flip() +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +  # Make space for labels
       labs(title = "Top AI Tools", x = "", y = "Count") +
       plot_theme()
   })
