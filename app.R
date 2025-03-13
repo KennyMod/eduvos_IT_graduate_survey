@@ -190,7 +190,7 @@ server <- function(input, output) {
       summarise(
         Total_Graduates = n(),
         Employed = sum(str_detect(Employment, regex("\\bEmployed\\b", ignore_case = TRUE))),
-        Employment_Rate = round((Employed / Total_Graduates) * 100, 1)
+        Employment_Rate = round((Employed / Total_Graduates) * 100, 2)
       ) %>%
       arrange(desc(Employment_Rate))
     
