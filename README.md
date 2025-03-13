@@ -51,7 +51,7 @@ Link to the dashboard can be accessed [here](https://kennymod.shinyapps.io/r_shi
     cd <repository-folder>
     ```
 
-2.  **Install Required Packages** `install.packages(c("shiny", "shinythemes", "tidyverse", "DT"))`
+2.  **Install Required Packages** `install.packages(c("shiny", "shinythemes", "tidyverse", "viridis", "rsconnect"))`
 
 3.  **Running the Application**
 
