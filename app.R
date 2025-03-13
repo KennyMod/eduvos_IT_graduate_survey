@@ -7,7 +7,6 @@ library(rsconnect)
 
 #Load the Top 5 Campus data
 Top_5_Campus_Data <- read_csv("top5CampusData.csv")
-View(Top_5_Campus_Data)
 
 ui <- dashboardPage(
   dashboardHeader(title = "IT Graduates Dashboard"), #Header or Title of Dashboard
