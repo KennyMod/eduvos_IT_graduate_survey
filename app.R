@@ -9,7 +9,7 @@ library(rsconnect)
 Top_5_Campus_Data <- read_csv("top5CampusData.csv")
 
 ui <- dashboardPage(
-  dashboardHeader(title = "IT Graduates Dashboard"), #Header or Title of Dashboard
+  dashboardHeader(title = "IT Graduates Dashboard", titleWidth = 300), #Header or Title of Dashboard
   dashboardSidebar(
     selectInput("campus", "Select Campus:",
                 choices = c("All", unique(Top_5_Campus_Data$Campus))),
